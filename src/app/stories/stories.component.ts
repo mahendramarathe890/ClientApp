@@ -3,6 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { MatTableDataSource } from '@angular/material';
 import { MatPaginator, PageEvent } from '@angular/material';
 import { Story } from './story';
+import {environment} from "../../environments/environment";
 
 @Component({
     selector: 'app-stories',
@@ -20,12 +21,11 @@ export class StoriesComponent {
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(
-    private http: HttpClient,
-    @Inject('BASE_URL') private _baseUrl: string) {
+    private http: HttpClient) {
   }
 
   getData(event: PageEvent) {
-    var url = this._baseUrl + 'api/Story';
+     var url = environment.APIBaseUrl + 'api/Story';
     var params = new HttpParams()
       .set("pageIndex", event.pageIndex.toString())
       .set("pageSize", event.pageSize.toString());
@@ -34,7 +34,7 @@ export class StoriesComponent {
   }
 
   getFilteredData(filter: string) {
-    var url = this._baseUrl + 'api/Story/GetFilteredStories';
+    var url = environment.APIBaseUrl+'api/Story/GetFilteredStories';
     var params = new HttpParams()
       .set("filter", filter);
 
